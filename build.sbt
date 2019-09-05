@@ -2,7 +2,7 @@ name := "ascii-graphs"
 
 organization := "com.github.mdr"
 
-version := "0.0.6"
+version := "0.0.6-SNAPSHOT"
 
 scalaVersion := "2.12.1"
 
@@ -35,9 +35,11 @@ publishMavenStyle := true
 
 publishArtifact in Test := false
 
-publishTo <<= isSnapshot(
-  if (_) Some("snapshots" at "https://oss.sonatype.org/content/repositories/snapshots/") 
-  else   Some("releases" at "https://oss.sonatype.org/service/local/staging/deploy/maven2/"))
+publishTo := Some("Artifactory Realm" at "http://34.218.183.193:8081/artifactory/maven-staging-local;build.timestamp=" + new java.util.Date().getTime)
+credentials += Credentials(Path.userHome / ".sbt" / "s1_artifactory.credentials")
+
+resolvers +=
+"Artifactory" at "http://34.218.183.193:8081/artifactory/maven-staging-local/"
 
 pomExtra := {
     <inceptionYear>2012</inceptionYear>
